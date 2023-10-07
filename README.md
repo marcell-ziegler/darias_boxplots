@@ -1,7 +1,7 @@
 # Installation
 Instruktioner varierar beroende på om måldatorn har python.
 
-**OBS!** Om eran admin inte tillåter er köra `.bat` filer eller `.exe` från nätet, se rubriken [Om IT-Människan är jobbig](https://github.com/marcell-ziegler/darias_boxplots/new/main?readme=1#om-it-m%C3%A4nniskan-%C3%A4r-jobbig).
+**OBS!** Om eran admin inte tillåter er köra `.bat` filer eller `.exe` från nätet, se rubriken [Om IT-Människan är jobbig](#om-it-människan-är-jobbig).
 ## Med Python
 1. Om du har python kan du ladda ner [darias_boxplots-1.0-py3-none-any.whl](https://github.com/marcell-ziegler/darias_boxplots/releases/download/v1.0/darias_boxplots-1.0-py3-none-any.whl), [python_run.bat](https://github.com/marcell-ziegler/darias_boxplots/releases/download/v1.0/python_run.bat) och frivilligt [python_uninstall.bat](https://github.com/marcell-ziegler/darias_boxplots/releases/download/v1.0/python_uninstall.bat) från den [senaste releasen](https://github.com/marcell-ziegler/darias_boxplots/releases/tag/v1.0) här i GitHub.
 2. Gå till dina nedladdningar (finns som `%UserProfile%/Downloads` i windows) och dubbeklicka (kör) `python_run.bat`
