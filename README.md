@@ -41,13 +41,13 @@ pip uninstall darias_boxplots
 # Exempel
 
 ## Pythonmetoden
-<video src="./vid/python_metod.mp4"/>
+[Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wvu_qVneF_USwIKQ?e=w2xC9a)
 
-## No-Pythonmetod
-<video src="./vid/no_python.mp4"/>
+## No-Pythonmetoden
+[Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wuM-IiM4yVMuFamQ?e=RczGsE)
 
-## Jobbig IT-metod
-<video src="./vid/it.mp4"/>
+## Jobbig IT-metoden
+[Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wtxgccl6VaiYa1dQ?e=I1Nst4)
 
-### Exempel på appfönster
+## Exempel på appfönster
 ![image](https://github.com/marcell-ziegler/darias_boxplots/assets/82723301/0a76c7cb-9fd0-47ec-a5f1-34f93bf42e4b)
