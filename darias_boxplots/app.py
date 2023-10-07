@@ -8,7 +8,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from tkinter import ttk
+from tkinter import BooleanVar, ttk
 
 mpl.use("TkAgg")
 
@@ -40,7 +40,7 @@ class GetPlotDataButton(ttk.Button):
         ax.boxplot(data, vert=False)
 
         ax.get_yaxis().set_visible(False)
-        ax.grid(True)
+        ax.grid(self.master.has_grid.get())
 
         self.master.plot = copy(fig)
         self.master.graph_frame.grid_forget()
@@ -58,11 +58,30 @@ class SaveButton(ttk.Button):
         self.master.plot.savefig(filename, backend="AGG")
 
 
+class OptionsFrame(ttk.Frame):
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs)
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+
+        self.grid_checkbox = ttk.Checkbutton(
+            self,
+            text="Grid",
+            variable=self.master.has_grid,
+            onvalue=True,
+            offvalue=False,
+        )
+        self.grid_checkbox.grid(column=0, row=0)
+
+
 class App(tk.Tk):
     plot: Figure = Figure()
+    has_grid: tk.BooleanVar
 
     def __init__(self):
         super().__init__()
+        self.has_grid = BooleanVar(value=True)
+
         self.title("Darias Boxplots")
         self.geometry("800x600")
         self.columnconfigure(0, weight=1)
@@ -78,6 +97,9 @@ class App(tk.Tk):
 
         self.save_button = SaveButton(self)
         self.save_button.grid(column=0, row=2, sticky="nsew")
+
+        self.options_panel = OptionsFrame(self)
+        self.options_panel.grid(column=0, row=3, sticky="nsew", pady=20)
 
         self.protocol("WM_DELETE_WINDOW", self.stop_app)
 
