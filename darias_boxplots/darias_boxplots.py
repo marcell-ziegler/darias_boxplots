@@ -79,6 +79,10 @@ class App(tk.Tk):
         sys.exit(0)
 
 
-def __main__() -> None:
+def main() -> None:
     app = App()
     app.mainloop()
+
+
+if __name__ == "__main__":
+    main()
