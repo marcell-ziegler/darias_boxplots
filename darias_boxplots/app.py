@@ -31,7 +31,11 @@ class GetPlotDataButton(ttk.Button):
 
         with open(filename, "r", encoding="utf8") as f:
             raw_data = f.read()
-            data = np.fromstring(raw_data, sep="," if "," in raw_data else ";")
+
+            if ",;" not in raw_data:
+                data = np.fromstring(raw_data, sep="\n")
+            else:
+                data = np.fromstring(raw_data, sep="," if "," in raw_data else ";")
         fig, ax = plt.subplots()
         ax.boxplot(data, vert=False)
 
