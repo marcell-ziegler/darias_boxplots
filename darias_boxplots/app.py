@@ -39,6 +39,9 @@ class GetPlotDataButton(ttk.Button):
         fig, ax = plt.subplots()
         ax.boxplot(data, vert=False)
 
+        ax.get_yaxis().set_visible(False)
+        ax.grid(True)
+
         self.master.plot = copy(fig)
         self.master.graph_frame.grid_forget()
         self.master.graph_frame = GraphFrame(self.master)
