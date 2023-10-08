@@ -39,20 +39,23 @@ pip uninstall darias_boxplots
 4. Om du är nöjd kan du trycka på `Save Plot` och sedan välja en plats och namnge den `.png` som kommer genereras.
 
 ## Format av excelark
-Måste se ut **exakt** såhär. Endast siffrorna (datan) får ändras. Annars kommer `pandas` att spy och jag har inte implementerat någon error handling.
+Måste se ut **exakt** såhär. Siffror **måste** använda punkter (`.`) som decimatecken. Basically måste de vara läsliga python floats. Endast siffrorna (datan) får ändras. Annars kommer pandas att dö och jag har inte implementerat någon error handling.
 ![image](https://github.com/marcell-ziegler/darias_boxplots/assets/82723301/cbea055a-5e43-4f72-8d38-ca78f3058528)
 
 
 # Exempel
+## Exempel på appfönster
+![image](https://github.com/marcell-ziegler/darias_boxplots/assets/82723301/4e6c15dc-54d4-4ff9-b86e-fc34cbf91ff5)
+## Exemepel med video
 **OBS! Dessa är nu gamla!**
-## Pythonmetoden
-[Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wvu_qVneF_USwIKQ?e=w2xC9a)
+### Pythonmetoden
+[Vi#deo](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wvu_qVneF_USwIKQ?e=w2xC9a)
 
-## No-Pythonmetoden
+### No-Pythonmetoden
 [Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wuM-IiM4yVMuFamQ?e=RczGsE)
 
-## Jobbig IT-metoden
+### Jobbig IT-metoden
 [Video](https://1drv.ms/v/s!Ahf4h_NoO2C-h_wtxgccl6VaiYa1dQ?e=I1Nst4)
 
-## Exempel på appfönster
-![image](https://github.com/marcell-ziegler/darias_boxplots/assets/82723301/0a76c7cb-9fd0-47ec-a5f1-34f93bf42e4b)
+
+
