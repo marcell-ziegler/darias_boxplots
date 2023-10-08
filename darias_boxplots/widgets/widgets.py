@@ -59,7 +59,7 @@ class HeaderFrame(ttk.Frame):
 
 class SettingsFrame(ttk.Frame):
     has_grid: tk.BooleanVar
-    length_unit: tk.StringVar
+    y_label: tk.StringVar
     length_unit_options = (
         "cm",
         "mm",
@@ -84,19 +84,21 @@ class SettingsFrame(ttk.Frame):
         self.grid_button.grid(column=0, row=1, sticky="nsew")
 
         # Unit Selector
-        self.unit_selector_frame = ttk.Frame(self)
-        self.unit_selector_frame.columnconfigure(0, weight=1)
-        self.unit_selector_frame.columnconfigure(1, weight=2)
-
-        self.length_unit_label = ttk.Label(self.unit_selector_frame, text="Längdenhet")
-        self.length_unit_label.grid(column=0, row=0, sticky="w")
-        self.length_unit = tk.StringVar(value="cm")
-        self.length_unit_selector = ttk.Combobox(
-            self.unit_selector_frame,
-            values=self.length_unit_options,
-            textvariable=self.length_unit,
+        self.y_label_selector_frame = ttk.Frame(self)
+        self.y_label_selector_frame.rowconfigure(0, weight=1)
+        self.y_label_selector_frame.rowconfigure(1, weight=2)
+        self.y_label_selector_frame.columnconfigure(0, weight=1)
+        self.y_label_selector_label = ttk.Label(
+            self.y_label_selector_frame, text="Text på y-axeln"
         )
-        self.length_unit_selector.grid(column=1, row=0, sticky="nsew")
+        self.y_label_selector_label.grid(column=0, row=0, sticky="sw")
+        self.y_label = tk.StringVar(value="Växtens höjd (cm)")
+        self.y_label_entry = ttk.Entry(
+            self.y_label_selector_frame,
+            textvariable=self.y_label,
+        )
+        self.y_label_entry.grid(column=0, row=1, sticky="nsew")
+        self.y_label_selector_frame.grid(column=0, row=2, sticky="nsew")
 
 
 class OptionsPanel(ttk.Frame):
@@ -186,6 +188,7 @@ class GetPlotDataButton(ttk.Button):
         vecka_3_socker = np.array(data["Vecka 3 Socker"])
 
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
+        plt.tight_layout(rect=[0, 0, 1, 0.9])
 
         bp1 = ax1.boxplot(
             (vecka_1_vatten, vecka_1_socker), labels=["Vatten", "Socker"], widths=0.5
@@ -218,6 +221,7 @@ class GetPlotDataButton(ttk.Button):
 
         for ax in [ax1, ax2, ax3]:
             ax.grid(self.master.master.settings_frame.has_grid.get(), axis="y")
+            ax.set_ylabel(self.master.master.settings_frame.y_label.get())
 
         fig.suptitle(self.master.master.header_frame.graph_title.get(), fontsize=16)
         fig.set_size_inches(
