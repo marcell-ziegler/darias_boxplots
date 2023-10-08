@@ -120,9 +120,13 @@ class OptionsPanel(ttk.Frame):
         self.header_frame = HeaderFrame(self, borderwidth=2, relief="groove")
         self.header_frame.grid(column=0, row=1, sticky="nsew")
 
+        # Frame for Size Settings
+        self.size_frame = SizeFrame(self, borderwidth=2, relief="groove")
+        self.size_frame.grid(column=0, row=2, sticky="nsew")
+
         # Frame for Settings
         self.settings_frame = SettingsFrame(self, borderwidth=2, relief="groove")
-        self.settings_frame.grid(column=0, row=2, sticky="nsew")
+        self.settings_frame.grid(column=0, row=3, sticky="nsew")
 
 
 class PlotPanel(ttk.Frame):
@@ -157,6 +161,7 @@ class GraphFrame(ttk.Frame):
 
 class GetPlotDataButton(ttk.Button):
     figure_object: Figure
+    INCHES = 1 / 2.54
 
     def __init__(self, parent, figure: Figure, **kwargs):
         super().__init__(
@@ -182,13 +187,19 @@ class GetPlotDataButton(ttk.Button):
 
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
 
-        bp1 = ax1.boxplot((vecka_1_vatten, vecka_1_socker), labels=["Vatten", "Socker"])
+        bp1 = ax1.boxplot(
+            (vecka_1_vatten, vecka_1_socker), labels=["Vatten", "Socker"], widths=0.5
+        )
         ax1.set_title("Vecka 1")
 
-        bp2 = ax2.boxplot((vecka_2_vatten, vecka_2_socker), labels=["Vatten", "Socker"])
+        bp2 = ax2.boxplot(
+            (vecka_2_vatten, vecka_2_socker), labels=["Vatten", "Socker"], widths=0.5
+        )
         ax2.set_title("Vecka 2")
 
-        bp3 = ax3.boxplot((vecka_3_vatten, vecka_3_socker), labels=["Vatten", "Socker"])
+        bp3 = ax3.boxplot(
+            (vecka_3_vatten, vecka_3_socker), labels=["Vatten", "Socker"], widths=0.5
+        )
         ax3.set_title("Vecka 3")
 
         for bp in [bp1, bp2, bp3]:
@@ -209,6 +220,10 @@ class GetPlotDataButton(ttk.Button):
             ax.grid(self.master.master.settings_frame.has_grid.get(), axis="y")
 
         fig.suptitle(self.master.master.header_frame.graph_title.get(), fontsize=16)
+        fig.set_size_inches(
+            float(self.master.master.size_frame.x_size.get()) * self.INCHES,
+            float(self.master.master.size_frame.y_size.get()) * self.INCHES,
+        )
         self.master.master.master.plot_panel.graph_frame.set_figure(fig)
 
 
@@ -223,3 +238,34 @@ class SaveButton(ttk.Button):
         self.figure_object = self.master.master.plot
         filename: str = asksaveasfilename(filetypes=[("PNG", "*.png")])
         self.figure_object.savefig(filename, backend="AGG")
+
+
+class SizeFrame(ttk.Frame):
+    x_size: tk.StringVar
+    y_size: tk.StringVar
+
+    def __init__(self, parent, **kwargs):
+        super().__init__(parent, **kwargs)
+        self.columnconfigure(1, weight=1)
+
+        self.y_size = tk.StringVar(value="12")
+        self.x_size = tk.StringVar(value="18")
+
+        self.size_label = ttk.Label(self, text="Storlek")
+        self.size_label.grid(column=0, row=0, sticky="sw", pady=5)
+
+        self.size_selector_frame = ttk.Frame(self)
+        self.size_selector_frame.grid(column=0, row=1, sticky="nsew")
+        self.size_selector_frame.columnconfigure(0, weight=1)
+        self.size_selector_frame.columnconfigure(2, weight=1)
+
+        self.x_size_entry = ttk.Entry(
+            self.size_selector_frame, textvariable=self.x_size
+        )
+        self.x_size_entry.grid(column=0, row=0, sticky="nsew")
+        self.x_label = ttk.Label(self.size_selector_frame, text="x")
+        self.x_label.grid(column=1, row=0, sticky="nsew")
+        self.y_size_entry = ttk.Entry(
+            self.size_selector_frame, textvariable=self.y_size
+        )
+        self.y_size_entry.grid(column=2, row=0, sticky="nsew")

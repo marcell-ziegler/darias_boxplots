@@ -5,7 +5,6 @@ from typing import NoReturn
 
 import matplotlib as mpl
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 from . import widgets as w
 
 mpl.use("TkAgg")
