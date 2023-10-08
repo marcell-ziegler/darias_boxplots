@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "darias_boxplots"
 description = "Boxplot generator for Daria"
-version = "2.0"
+version = "2.1"
 authors = ["Marcell Ziegler <marcell.ziegler.22@gmail.com>"]
 readme = "README.md"
 license = "GPL-3.0-only"
