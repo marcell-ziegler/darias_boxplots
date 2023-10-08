@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "darias_boxplots"
 description = "Boxplot generator for Daria"
-version = "1.0"
+version = "2.0"
 authors = ["Marcell Ziegler <marcell.ziegler.22@gmail.com>"]
 readme = "README.md"
 license = "GPL-3.0-only"
@@ -23,4 +23,3 @@ boxplots = "darias_boxplots.app:main"
 [tool.poetry.group.dev.dependencies]
 pylama = "^8.4.1"
 pyinstaller = "^6.0.0"
-
