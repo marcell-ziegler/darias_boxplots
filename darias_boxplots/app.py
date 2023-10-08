@@ -6,17 +6,13 @@ from typing import NoReturn
 import matplotlib as mpl
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-from widgets import (
-    OptionsPanel,
-    PlotPanel,
-)
+from . import widgets as w
 
 mpl.use("TkAgg")
 
 
 class App(tk.Tk):
-    plot: Figure
-    has_grid: tk.BooleanVar
+    plot: Figure = Figure()
 
     def __init__(self):
         super().__init__()
@@ -28,12 +24,12 @@ class App(tk.Tk):
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
 
-        fig, ax = plt.subplots()
-
-        self.plot_panel = PlotPanel(self, fig, borderwidth=2, relief="groove")
+        self.plot_panel = w.PlotPanel(self, self.plot, borderwidth=2, relief="groove")
         self.plot_panel.grid(column=0, row=0, sticky="nsew")
 
-        self.options_panel = OptionsPanel(self, fig, borderwidth=2, relief="groove")
+        self.options_panel = w.OptionsPanel(
+            self, self.plot, borderwidth=2, relief="groove"
+        )
         self.options_panel.grid(column=1, row=0, sticky="nsew")
 
         self.protocol("WM_DELETE_WINDOW", self.stop_app)

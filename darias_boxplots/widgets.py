@@ -77,7 +77,7 @@ class SettingsFrame(ttk.Frame):
         self.settings_label.grid(column=0, row=0, columnspan=2, sticky="nsew", pady=5)
 
         # Grid Checkbox
-        self.has_grid = tk.BooleanVar(value=True)
+        self.has_grid = tk.BooleanVar(value=False)
         self.grid_button = ttk.Checkbutton(
             self, text="Grid", variable=self.has_grid, onvalue=True, offvalue=False
         )
@@ -112,7 +112,7 @@ class OptionsPanel(ttk.Frame):
         self.file_button_frame = ttk.Frame(self, borderwidth=2, relief="groove")
         self.file_button_frame.grid(column=0, row=0, sticky="nsew")
         self.file_button_frame.columnconfigure(0, weight=1)
-        self.file_button_frame.rowconfigure(0, weight=1)
+
         self.file_button = GetPlotDataButton(self.file_button_frame, figure)
         self.file_button.grid(column=0, row=0, sticky="nsew")
 
@@ -148,6 +148,12 @@ class GraphFrame(ttk.Frame):
         self.canvas = FigureCanvasTkAgg(figure, self)
         self.canvas.get_tk_widget().pack(fill="both", expand=True)
 
+    def set_figure(self, figure: Figure):
+        self.canvas.get_tk_widget().pack_forget()
+        self.canvas = FigureCanvasTkAgg(copy(figure), self)
+        self.canvas.get_tk_widget().pack(fill="both", expand=True)
+        self.master.master.plot = figure
+
 
 class GetPlotDataButton(ttk.Button):
     figure_object: Figure
@@ -162,7 +168,48 @@ class GetPlotDataButton(ttk.Button):
         filename: str = askopenfilename(filetypes=[("Excel files", ("*xlsx"))])
 
         data = pd.read_excel(filename)
-        print(data)
+
+        mpl.rcParams["font.family"] = self.master.master.header_frame.font_type.get()
+
+        vecka_1_vatten = np.array(data["Vecka 1 Vatten"])
+        vecka_1_socker = np.array(data["Vecka 1 Socker"])
+
+        vecka_2_vatten = np.array(data["Vecka 2 Vatten"])
+        vecka_2_socker = np.array(data["Vecka 2 Socker"])
+
+        vecka_3_vatten = np.array(data["Vecka 3 Vatten"])
+        vecka_3_socker = np.array(data["Vecka 3 Socker"])
+
+        fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
+
+        bp1 = ax1.boxplot((vecka_1_vatten, vecka_1_socker), labels=["Vatten", "Socker"])
+        ax1.set_title("Vecka 1")
+
+        bp2 = ax2.boxplot((vecka_2_vatten, vecka_2_socker), labels=["Vatten", "Socker"])
+        ax2.set_title("Vecka 2")
+
+        bp3 = ax3.boxplot((vecka_3_vatten, vecka_3_socker), labels=["Vatten", "Socker"])
+        ax3.set_title("Vecka 3")
+
+        for bp in [bp1, bp2, bp3]:
+            for key, val in bp.items():
+                if len(val) == 0:
+                    continue
+
+                if key != "whiskers" and key != "caps":
+                    plt.setp(val[0], color="blue")
+                    plt.setp(val[1], color="red")
+                else:
+                    plt.setp(val[0], color="blue")
+                    plt.setp(val[1], color="blue")
+                    plt.setp(val[2], color="red")
+                    plt.setp(val[3], color="red")
+
+        for ax in [ax1, ax2, ax3]:
+            ax.grid(self.master.master.settings_frame.has_grid.get(), axis="y")
+
+        fig.suptitle(self.master.master.header_frame.graph_title.get(), fontsize=16)
+        self.master.master.master.plot_panel.graph_frame.set_figure(fig)
 
 
 class SaveButton(ttk.Button):
@@ -173,5 +220,6 @@ class SaveButton(ttk.Button):
         self.figure_object = figure
 
     def save_plot(self) -> None:
+        self.figure_object = self.master.master.plot
         filename: str = asksaveasfilename(filetypes=[("PNG", "*.png")])
         self.figure_object.savefig(filename, backend="AGG")
