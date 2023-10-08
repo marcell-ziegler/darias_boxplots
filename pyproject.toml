@@ -9,6 +9,11 @@ version = "2.0"
 authors = ["Marcell Ziegler <marcell.ziegler.22@gmail.com>"]
 readme = "README.md"
 license = "GPL-3.0-only"
+packages = [
+    { include = "darias_boxplots/app.py" },
+    { include = "darias_boxplots/widgets/widgets.py" },
+]
+
 
 [tool.poetry.dependencies]
 python = "<3.13,>=3.9"

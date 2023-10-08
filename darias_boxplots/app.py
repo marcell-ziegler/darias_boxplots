@@ -5,7 +5,7 @@ from typing import NoReturn
 
 import matplotlib as mpl
 from matplotlib.figure import Figure
-from . import widgets as w
+from darias_boxplots.widgets import widgets as w
 
 mpl.use("TkAgg")
 
