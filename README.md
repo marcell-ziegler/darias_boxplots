@@ -38,6 +38,11 @@ pip uninstall darias_boxplots
 3. Betrakta plotten. Om du inte vill ha linjer, klicka ur knappen `Grid`.
 4. Om du är nöjd kan du trycka på `Save Plot` och sedan välja en plats och namnge den `.png` som kommer genereras.
 
+## Format av excelark
+Måste se ut **exakt** såhär. Endast siffrorna (datan) får ändras. Annars kommer `pandas` att spy och jag har inte implementerat någon error handling.
+![image](https://github.com/marcell-ziegler/darias_boxplots/assets/82723301/cbea055a-5e43-4f72-8d38-ca78f3058528)
+
+
 # Exempel
 **OBS! Dessa är nu gamla!**
 ## Pythonmetoden
