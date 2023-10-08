@@ -12,8 +12,6 @@ from widgets import (
     GetPlotDataButton,
 )
 
-mpl.use("TkAgg")
-
 
 class App(tk.Tk):
     plot: Figure = Figure()

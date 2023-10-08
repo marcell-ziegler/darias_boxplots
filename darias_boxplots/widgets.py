@@ -5,6 +5,9 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib as mpl
+
+mpl.use("TkAgg")
 
 
 class GraphFrame(ttk.Frame):
