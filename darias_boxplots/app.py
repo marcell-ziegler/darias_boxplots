@@ -5,16 +5,17 @@ from typing import NoReturn
 
 import matplotlib as mpl
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 from widgets import (
-    GraphFrame,
-    OptionsFrame,
-    SaveButton,
-    GetPlotDataButton,
+    OptionsPanel,
+    PlotPanel,
 )
+
+mpl.use("TkAgg")
 
 
 class App(tk.Tk):
-    plot: Figure = Figure()
+    plot: Figure
     has_grid: tk.BooleanVar
 
     def __init__(self):
@@ -23,22 +24,17 @@ class App(tk.Tk):
 
         self.title("Darias Boxplots")
         self.geometry("1000x600")
-        self.columnconfigure(0, weight=1)
-        self.rowconfigure(0, weight=20)
-        self.rowconfigure(1, weight=1)
-        self.rowconfigure(2, weight=1)
+        # self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
 
-        self.graph_frame = GraphFrame(self)
-        self.graph_frame.grid(column=0, row=0, sticky="nsew")
+        fig, ax = plt.subplots()
 
-        self.file_button = GetPlotDataButton(self)
-        self.file_button.grid(column=0, row=1, sticky="nsew")
+        self.plot_panel = PlotPanel(self, fig, borderwidth=2, relief="groove")
+        self.plot_panel.grid(column=0, row=0, sticky="nsew")
 
-        self.save_button = SaveButton(self)
-        self.save_button.grid(column=0, row=2, sticky="nsew")
-
-        self.options_panel = OptionsFrame(self)
-        self.options_panel.grid(column=0, row=3, sticky="nsew", pady=20)
+        self.options_panel = OptionsPanel(self, fig, borderwidth=2, relief="groove")
+        self.options_panel.grid(column=1, row=0, sticky="nsew")
 
         self.protocol("WM_DELETE_WINDOW", self.stop_app)
 
